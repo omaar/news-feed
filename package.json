@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "DEBUG=news-feed hotnode ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {

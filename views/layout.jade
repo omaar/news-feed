@@ -1,7 +1,18 @@
 doctype html
 html
   head
-    title= title
+    title News Feed
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    script(src="/javascripts/angular.min.js")
+    script(src="/javascripts/angular-ui-router.min.js")
+    script(src="/javascripts/main.js")
+  body(ng-app="newsFeed")
     block content
+  script(type="text/ng-template" id="/news.html")
+    .col-md-12(ng-controller="NewsCtrl")
+        ul(ng-repeat="item in titleP")
+            li{{item}}
