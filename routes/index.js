@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/news/', function(req, res, next){
+	res.sendfile('./models/news_mock.json');
+});
+
+
 module.exports = router;

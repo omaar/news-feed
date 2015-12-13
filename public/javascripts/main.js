@@ -5,7 +5,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
 	.state('news', {
 		url: '/news',
 		templateUrl: '/news.html',
-		controller: 'NewsCtrl'
+		controller: 'NewsCtrl',
+		resolve: {
+			newsPromise: ['news', function(news) {
+				return news.getAll();
+			}]
+		}
 	})
 	.state('new', {
 		url: '/new',
@@ -13,12 +18,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
 		controller: 'NewCtrl'
 	});
 	$urlRouterProvider.otherwise('news');
-	//$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode({enabled: true, requireBase: false}).hashPrefix('!');
 }]);
 
-app.controller('NewsCtrl', ['$scope', function($scope){
-	$scope.titleP = ['New 1', 'New 2', 'New 3'];
+app.controller('NewsCtrl', ['$scope', 'news', function($scope, news){
+	$scope.title = 'News Feed';
+	$scope.titleP = news.data;
 }]);
 
 app.controller('NewCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
+}]);
+
+app.factory('news', ['$http', function($http){
+	var s = {
+		data: []
+	};
+	s.getAll = function(){
+		return $http.get('/news').success(function(data){
+			angular.copy(data, s.data);
+		});
+	};
+
+	return s;
 }]);

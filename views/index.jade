@@ -2,6 +2,5 @@ extends layout
 
 block content
 	.container
-		.row
-			h1= title
+		.row(ng-controller="NewsCtrl")
 			ui-view
