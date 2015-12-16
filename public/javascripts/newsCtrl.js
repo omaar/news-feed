@@ -13,7 +13,7 @@ app.controller('NewsCtrl', ['$scope', 'api', '$document',  function($scope, api,
 		}else{ content.setAttribute("class", "panel panel-default content ng-enter") };
 		$scope.show[id] = !$scope.show[id];
 	};
-	$scope.like = function(article) {
-		article.id += 1;
+	$scope.like = function(key) {
+		$scope.news[key].id += 1;
 	};
 }]);
