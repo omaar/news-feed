@@ -4,23 +4,50 @@ html
     title News Feed
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='https://bootswatch.com/flatly/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(ng-app="newsFeed")
-    nav(class="navbar navbar-inverse")
-        div(class="navbar-header")
-            a(href="#" class="navbar-brand") News Feed
-    .container
-        .row
-            .jumbotron
-                block content
+    .container-fluid
+        .app
+            nav.navbar.navbar-inverse
+                .container-fluid
+                    .navbar-header
+                        ul.nav.navbar-nav.pullDown
+                            li #[a.navbar-brand(href='#/') Grability]
+                            li #[a#menu(href='#/news') #[i.fa.fa-bars]]
+                            //- li #[a(href="#/news") Autor: {{}}]
+                            //- li #[a(href="#/news") Comments: {{news.id}}]
+                    //- ul(ng-hide="show" class="")
+            block content
   script(type="text/ng-template" id="/news.html")
-    .col-md-12
-        ul(class="collapsible", data-collapsible="accordion")
-            li(ng-repeat="item in titleP")
-                .collapsible-header #[img(ng-src="{{item.image}}", class="new-img")] {{item.title}}
-                .collapsible-body #[p {{item.content}}]
+    .container(ng-show="!loader")
+        div(ng-repeat="(key,new) in news | orderBy: '-id'")
+            .panel.panel-default.new.stretchRight(ng-click="toggleContent(new.id)")
+                .panel-body
+                    .row
+                        .col-xs-12.col-sm-2.col-md-2
+                            img(ng-src="{{new.image}}", class="new-img")
+                        .col-xs-12.col-sm-10.col-md-10
+                            h4.title-new #[strong{{new.title}}]
+                            small(ng-click="like(new)") #[p Likes: #[i.fa.fa-thumbs-up] #[span.badge {{new.id}}]]
+            .panel.panel-default.ng-hide.content(id="{{new.id}}")
+                .panel-body.content-new
+                    .row
+                        .col-md-4.col-sm-4
+                            img.img-responsive(ng-src="{{new.image}}")
+                        .col-md-8.col-sm-8
+                            h4.title-new {{new.title}}
+                            hr
+                            .blockquote
+                                p {{new.content}}
+  script(type="text/ng-template" id="/index.html")
+    .container
+        h1.text-center Grability...
+                    
   script(src="/javascripts/angular.min.js")
   script(src="/javascripts/angular-ui-router.min.js")
+  script(src="/javascripts/angular-animate.min.js")
   script(src="/javascripts/main.js")
+  script(src="/javascripts/newsCtrl.js")
+  script(src="/javascripts/services.js")
