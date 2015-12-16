@@ -1,4 +1,4 @@
-# [News Feed].
+# [News Feed](https://github.com/omaar/news-feed)
 
 ## Getting Started
 
